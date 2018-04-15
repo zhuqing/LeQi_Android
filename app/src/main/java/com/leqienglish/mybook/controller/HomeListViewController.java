@@ -9,9 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.leqienglish.mybook.R;
-import com.leqienglish.mybook.entity.Aritcal;
-import com.leqienglish.mybook.entity.User;
-import com.leqienglish.mybook.fragment.HomeFragment;
+import com.leqienglish.mybook.entity.english.Content;
 import com.leqienglish.mybook.sf.LQService;
 import com.leqienglish.mybook.util.LQHandler;
 
@@ -34,16 +32,16 @@ public class HomeListViewController extends Controller<View>{
     @Override
     public void init() {
        this.listView= (ListView) this.getView().findViewById(R.id.home_listview);
-        LQService.get("/user/get", User[].class, null, new LQHandler.Consumer<User[]>() {
+        LQService.get("/english/content/findAll", Content[].class, null, new LQHandler.Consumer<Content[]>() {
             @Override
-            public void applay(User[] users) {
+            public void applay(Content[] users) {
                 addAdapter(Arrays.asList(users));
 
             }
         });
     }
 
-    private HomeListViewAdapter addAdapter(List<User> users){
+    private HomeListViewAdapter addAdapter(List<Content> users){
         HomeListViewAdapter homeListViewAdapter = new HomeListViewAdapter(LayoutInflater.from(this.getView().getContext()));
         homeListViewAdapter.setItems(users);
         listView.setAdapter(homeListViewAdapter);
@@ -64,13 +62,13 @@ public class HomeListViewController extends Controller<View>{
         public HomeListViewAdapter(LayoutInflater mInflater){
             this.mInflater = mInflater;
         }
-        private List<User> items;
+        private List<Content> items;
 
-        public List<User> getItems() {
+        public List<Content> getItems() {
             return items;
         }
 
-        public void setItems(List<User> items) {
+        public void setItems(List<Content> items) {
             this.items = items;
         }
 
@@ -80,13 +78,13 @@ public class HomeListViewController extends Controller<View>{
         }
 
         @Override
-        public User getItem(int i) {
+        public Content getItem(int i) {
             return items.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return this.getItem(i).getId();
+            return 0L;
         }
 
         @Override
@@ -103,11 +101,11 @@ public class HomeListViewController extends Controller<View>{
                 view.setTag(holder);
             }
 
-            User actical = this.getItem(i);
+            Content actical = this.getItem(i);
             if(actical == null){
                 return view;
             }
-            holder.title.setText(actical.getName());
+            holder.title.setText(actical.getContent());
 
             return view;
         }

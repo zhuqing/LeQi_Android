@@ -1,10 +1,20 @@
 package com.leqienglish.mybook.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.io.Serializable;
+
+
+
+
 /**
  * Created by zhuqing on 2017/7/25.
  */
-public class Entity {
-    private Long id;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Entity   implements Serializable {
+
+
+    private String id;
     private Long createDate;
     private Long updateDate;
     private Integer status;
@@ -33,11 +43,12 @@ public class Entity {
         this.updateDate = updateDate;
     }
 
-    public Long getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
